@@ -5,6 +5,7 @@ import joblib
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
 from sklearn.ensemble import RandomForestClassifier
+from sklearn.ensemble import ExtraTreesClassifier
 from xgboost import XGBClassifier
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
@@ -72,8 +73,13 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_
 # -----------------------------
 mypipeline = Pipeline([
     ("scaler", StandardScaler()),
-    ("Classifier", RandomForestClassifier())
+    ("Classifier", ExtraTreesClassifier(random_state=42))
     ])
+
+# mypipeline = Pipeline([
+#     ("scaler", StandardScaler()),
+#     ("Classifier", RandomForestClassifier())
+#     ])
 
 # mypipeline = Pipeline([
 #     ("scaler", StandardScaler()),
