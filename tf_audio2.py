@@ -51,7 +51,7 @@ def predict_from_mic(seconds=2, n_mfcc=13, max_len=88, rms_threshold=0.01):
     label = encoder.inverse_transform([np.argmax(prediction)])[0]
     
     print(prob)
-    
+
     # Optional: ignore low-confidence predictions
     if prob < 0.6:
         return "silence"

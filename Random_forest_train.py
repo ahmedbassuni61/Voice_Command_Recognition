@@ -4,6 +4,7 @@ import librosa
 import joblib
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
+from sklearn.ensemble import RandomForestClassifier
 from xgboost import XGBClassifier
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
@@ -69,9 +70,14 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_
 # -----------------------------
 # Train Random Forest
 # -----------------------------
+mypipeline = Pipeline([
+    ("scaler", StandardScaler()),
+    ("Classifier", RandomForestClassifier())
+    ])
+
 # mypipeline = Pipeline([
 #     ("scaler", StandardScaler()),
-#     ("svc", SVC(kernel="poly",
+#     ("Classifier", SVC(kernel="poly",
 #     degree=3,        # try 2 or 3
 #     C=0.8,            # regularization strength
 #     gamma="scale",   # kernel coefficient
@@ -79,10 +85,12 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_
 #     random_state=42))
 #     ])
 
-mypipeline = Pipeline([
-    ("scaler", StandardScaler()),
-    ("Classifier", XGBClassifier(random_state=42))
-    ])
+# mypipeline = Pipeline([
+#     ("scaler", StandardScaler()),
+#     ("Classifier", XGBClassifier(
+#     n_estimators=200, learning_rate=0.05, max_depth=15, random_state=42
+#     ))
+#     ])
 
 mypipeline.fit(X_train, y_train)
 
