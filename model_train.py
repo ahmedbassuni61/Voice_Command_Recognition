@@ -41,7 +41,7 @@ def extract_features(file_path, n_mfcc=13, max_len=88):
     else:
         mfcc = mfcc[:, :max_len]
 
-    return mfcc.flatten()   # 👈 Flatten for Random Forest
+    return mfcc.flatten()   # 👈 Flatten
 
 # -----------------------------
 # Load Dataset
@@ -101,7 +101,6 @@ mypipeline = Pipeline([
 
 mypipeline.fit(X_train, y_train)
 
-
 # Evaluate
 y_pred = mypipeline.predict(X_test)
 
@@ -111,15 +110,15 @@ cm = confusion_matrix(y_test, y_pred)
 # Display with labels
 disp = ConfusionMatrixDisplay(confusion_matrix=cm,display_labels=encoder.classes_)
 disp.plot(cmap=plt.cm.Blues, values_format='d')
-plt.title("Confusion Matrix - Random Forest")
+plt.title("Confusion Matrix -")
 plt.show()
 
 acc = accuracy_score(y_test, y_pred)
-print(f"✅ Random Forest accuracy: {acc:.2f}")
+print(f"✅ test accuracy: {acc:.2f}")
 
 # -----------------------------
 # Save Model + Encoder
 # -----------------------------
 joblib.dump(mypipeline, "on_off_rf_model.pkl")
 joblib.dump(encoder, "label_encoder.pkl")
-print("✅ Random Forest model saved as on_off_rf_model.pkl")
+print("✅ model saved as on_off_rf_model.pkl")
