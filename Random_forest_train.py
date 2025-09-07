@@ -7,6 +7,7 @@ from sklearn.preprocessing import LabelEncoder
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.ensemble import ExtraTreesClassifier
 from xgboost import XGBClassifier
+from catboost import CatBoostClassifier
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
 from sklearn.svm import SVC
@@ -18,12 +19,12 @@ import matplotlib.pyplot as plt
 # Parameters
 # -----------------------------
 DATASET_PATH = "dataset_augmented"
-SAMPLES_PER_FILE = 32000   # 2 sec @16kHz
+SAMPLES_PER_FILE = 16000   # 1 sec @16kHz
 
 # -----------------------------
-# Feature Extraction (same as before)
+# Feature Extraction
 # -----------------------------
-def extract_features(file_path, n_mfcc=15, max_len=88):
+def extract_features(file_path, n_mfcc=13, max_len=88):
     audio, sr = librosa.load(file_path, sr=16000)
     audio, _ = librosa.effects.trim(audio, top_db=20)
 
@@ -73,12 +74,12 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_
 # -----------------------------
 mypipeline = Pipeline([
     ("scaler", StandardScaler()),
-    ("Classifier", ExtraTreesClassifier(random_state=42))
+    ("Classifier", ExtraTreesClassifier(n_estimators=150,random_state=42))
     ])
 
 # mypipeline = Pipeline([
 #     ("scaler", StandardScaler()),
-#     ("Classifier", RandomForestClassifier())
+#     ("Classifier", RandomForestClassifier(n_estimators=200,random_state=42))
 #     ])
 
 # mypipeline = Pipeline([
@@ -94,7 +95,7 @@ mypipeline = Pipeline([
 # mypipeline = Pipeline([
 #     ("scaler", StandardScaler()),
 #     ("Classifier", XGBClassifier(
-#     n_estimators=200, learning_rate=0.05, max_depth=15, random_state=42
+#     n_estimators=200, learning_rate=0.05, max_depth=15, random_state=42 ,
 #     ))
 #     ])
 

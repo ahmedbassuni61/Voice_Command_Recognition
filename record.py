@@ -12,12 +12,12 @@ def record_command(filename, duration=2, samplerate=16000):
     print(f"✅ Saved: {filename}")
 
 
-for i in range(18,30):
-    # Record "on"
-    record_command(f"dataset/on/on_{i}.wav", duration=2)
+for i in range(130,150):
+    # # Record "on"
+    # record_command(f"dataset/on/on_{i}.wav", duration=2)
 
-    # Record "off"
-    record_command(f"dataset/off/off_{i}.wav", duration=2)
+    # # Record "off"
+    # record_command(f"dataset/off/off_{i}.wav", duration=2)
 
     # # Record "unknown"
-    # record_command(f"dataset/unknown/unknown_{i}.wav", duration=2)
+    record_command(f"dataset/unknown/unknown_{i}.wav", duration=2)

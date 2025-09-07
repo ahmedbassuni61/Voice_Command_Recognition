@@ -14,7 +14,7 @@ encoder = joblib.load("label_encoder.pkl") # saved during training
 # -----------------------------
 SAMPLE_RATE = 16000
 SAMPLES_PER_FILE = 32000  # 2 seconds
-N_MFCC = 15
+N_MFCC = 13
 MAX_LEN = 88
 
 # -----------------------------
