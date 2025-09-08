@@ -19,7 +19,7 @@ import matplotlib.pyplot as plt
 # Parameters
 # -----------------------------
 DATASET_PATH = "dataset_augmented"
-SAMPLES_PER_FILE = 16000   # 1 sec @16kHz
+SAMPLES_PER_FILE = 32000   # 1 sec @16kHz
 
 # -----------------------------
 # Feature Extraction
