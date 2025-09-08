@@ -17,31 +17,6 @@ arduino_port = "COM11"  # change if needed
 baud_rate = 9600
 
 
-def try_connect():
-    global ser, arduino_connected
-    if not arduino_connected:  # only try if not already connected
-        try:
-            ser = serial.Serial(arduino_port, baud_rate, timeout=1)
-            arduino_connected = True
-            print("✅ Arduino connected.")
-            log.append("✅ Arduino connected.")
-        except Exception:
-            text = "❌ Arduino not connected. Retrying..."
-            if text not in log:
-                log.append(text)
-
-
-def check_connection():
-    global arduino_connected, ser
-    if arduino_connected and ser:
-        if not ser.is_open:  # if lost connection
-            arduino_connected = False
-    else:
-        try_connect()  # try to reconnect
-
-    root.after(2000, check_connection)  # check again every 2s
-
-
 ser = serial.Serial("COM11", 9600, timeout=1)  # Update COM port
 time.sleep(2)
 pause_reading = threading.Event()
