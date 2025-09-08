@@ -60,8 +60,8 @@ def predict_from_mic(seconds=2, rms_threshold=0.01):
     print(prob)
 
     # Optional: ignore low-confidence predictions
-    if prob < 0.5:
-        return "silence"
+    # if prob < 0.5:
+    #     return "silence"
 
     return encoder.inverse_transform([prediction])[0]
 

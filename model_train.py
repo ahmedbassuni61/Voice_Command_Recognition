@@ -14,6 +14,7 @@ from sklearn.svm import SVC
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
 import matplotlib.pyplot as plt
+from sklearn.calibration import CalibratedClassifierCV
 
 # -----------------------------
 # Parameters
@@ -72,33 +73,21 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_
 # -----------------------------
 # Train Random Forest
 # -----------------------------
+# base_model  =   ExtraTreesClassifier(n_estimators=140, random_state=42)
+# base_model  =   SVC(kernel="poly",
+#                 degree=3,        # try 2 or 3
+#                 C=0.8,            # regularization strength
+#                 gamma="scale",   # kernel coefficient
+#                 probability=True,
+#                 random_state=42)
+base_model  =   RandomForestClassifier(n_estimators=200,random_state=42)
+# base_model  =   XGBClassifier(n_estimators=200, learning_rate=0.05, max_depth=15, random_state=42)
+#calibrated_model = CalibratedClassifierCV(base_model, cv=10)  # Platt scaling
+
 mypipeline = Pipeline([
     ("scaler", StandardScaler()),
-    ("Classifier", ExtraTreesClassifier(n_estimators=150,random_state=42))
+    ("Classifier",base_model)
     ])
-
-# mypipeline = Pipeline([
-#     ("scaler", StandardScaler()),
-#     ("Classifier", RandomForestClassifier(n_estimators=200,random_state=42))
-#     ])
-
-# mypipeline = Pipeline([
-#     ("scaler", StandardScaler()),
-#     ("Classifier", SVC(kernel="poly",
-#     degree=3,        # try 2 or 3
-#     C=0.8,            # regularization strength
-#     gamma="scale",   # kernel coefficient
-#     probability=True,
-#     random_state=42))
-#     ])
-
-# mypipeline = Pipeline([
-#     ("scaler", StandardScaler()),
-#     ("Classifier", XGBClassifier(
-#     n_estimators=200, learning_rate=0.05, max_depth=15, random_state=42 ,
-#     ))
-#     ])
-
 mypipeline.fit(X_train, y_train)
 
 # Evaluate
