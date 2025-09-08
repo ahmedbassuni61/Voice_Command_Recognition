@@ -68,11 +68,12 @@ encoder = LabelEncoder()
 y = encoder.fit_transform(y)
 
 # Train-test split
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.05, random_state=42)
 
 # -----------------------------
 # Train Random Forest
 # -----------------------------
+
 # base_model  =   ExtraTreesClassifier(n_estimators=140, random_state=42)
 # base_model  =   SVC(kernel="poly",
 #                 degree=3,        # try 2 or 3
@@ -80,7 +81,7 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_
 #                 gamma="scale",   # kernel coefficient
 #                 probability=True,
 #                 random_state=42)
-base_model  =   RandomForestClassifier(n_estimators=200,random_state=42)
+base_model  =     RandomForestClassifier(n_estimators=150,random_state=42)
 # base_model  =   XGBClassifier(n_estimators=200, learning_rate=0.05, max_depth=15, random_state=42)
 #calibrated_model = CalibratedClassifierCV(base_model, cv=10)  # Platt scaling
 
@@ -88,6 +89,7 @@ mypipeline = Pipeline([
     ("scaler", StandardScaler()),
     ("Classifier",base_model)
     ])
+
 mypipeline.fit(X_train, y_train)
 
 # Evaluate
