@@ -11,11 +11,42 @@ import librosa
 import joblib
 
 # -------------------- Serial & Model Setup --------------------
+ser = None
+arduino_connected = False
+arduino_port = "COM11"  # change if needed
+baud_rate = 9600
+
+
+def try_connect():
+    global ser, arduino_connected
+    if not arduino_connected:  # only try if not already connected
+        try:
+            ser = serial.Serial(arduino_port, baud_rate, timeout=1)
+            arduino_connected = True
+            print("✅ Arduino connected.")
+            log.append("✅ Arduino connected.")
+        except Exception:
+            text = "❌ Arduino not connected. Retrying..."
+            if text not in log:
+                log.append(text)
+
+
+def check_connection():
+    global arduino_connected, ser
+    if arduino_connected and ser:
+        if not ser.is_open:  # if lost connection
+            arduino_connected = False
+    else:
+        try_connect()  # try to reconnect
+
+    root.after(2000, check_connection)  # check again every 2s
+
+
 ser = serial.Serial("COM11", 9600, timeout=1)  # Update COM port
 time.sleep(2)
 pause_reading = threading.Event()
 
-model = joblib.load("on_off_model.pkl")
+model = joblib.load("on_off_rf_model.pkl")
 encoder = joblib.load("label_encoder.pkl")
 
 history_log = "sensor_data.csv"
@@ -311,7 +342,7 @@ def predict_from_mic(seconds=2, n_mfcc=13, max_len=88, rms_threshold=0.01):
         elif label == "off":
             send_data("0", pause_time=1)
             log.append("Command: OFF → Sent '0'")
-        root.after(2000, lambda: threading.Thread(target=predict_from_mic).start())
+        root.after(50, lambda: threading.Thread(target=worker).start())
 
     threading.Thread(target=worker, daemon=True).start()
 
