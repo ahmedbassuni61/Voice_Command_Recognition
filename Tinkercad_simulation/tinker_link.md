@@ -1,0 +1,1 @@
+https://www.tinkercad.com/things/j2XcmM3yH4D-satellite-mind-cloud?sharecode=YnXFUwhXHewtCn7S3cjpo1IYVlcCuIrIMzQLxNksxNM
