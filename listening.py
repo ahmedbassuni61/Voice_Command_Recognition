@@ -13,7 +13,7 @@ encoder = joblib.load("label_encoder.pkl") # saved during training
 # Parameters
 # -----------------------------
 SAMPLE_RATE = 16000
-SAMPLES_PER_FILE = 32000  # 1 second @16kHz
+SAMPLES_PER_FILE = 32000  # 2 second @16kHz
 N_MFCC = 13
 MAX_LEN = 88
 
@@ -71,7 +71,7 @@ def predict_from_mic(seconds=2, rms_threshold=0.01):
 # -----------------------------
 # Continuous testing loop
 # -----------------------------
-print("🎤 Starting live detection (Random Forest). Press Ctrl+C to stop.")
+print("🎤 Starting live detection. Press Ctrl+C to stop.")
 try:
     while True:
         print("Speak now...")

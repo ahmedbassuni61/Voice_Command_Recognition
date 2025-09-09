@@ -20,7 +20,7 @@ from sklearn.calibration import CalibratedClassifierCV
 # Parameters
 # -----------------------------
 DATASET_PATH = "dataset_augmented"
-SAMPLES_PER_FILE = 32000   # 1 sec @16kHz
+SAMPLES_PER_FILE = 32000   # 2 sec @16kHz
 
 # -----------------------------
 # Feature Extraction
@@ -42,7 +42,7 @@ def extract_features(file_path, n_mfcc=13, max_len=88):
     else:
         mfcc = mfcc[:, :max_len]
 
-    return mfcc.flatten()   # 👈 Flatten
+    return mfcc.flatten()   #Flatten
 
 # -----------------------------
 # Load Dataset
@@ -71,7 +71,7 @@ y = encoder.fit_transform(y)
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.05, random_state=42)
 
 # -----------------------------
-# Train Random Forest
+# Model
 # -----------------------------
 
 # base_model  =   ExtraTreesClassifier(n_estimators=140, random_state=42)

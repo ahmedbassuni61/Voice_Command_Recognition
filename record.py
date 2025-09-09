@@ -1,7 +1,9 @@
 import sounddevice as sd
 import soundfile as sf
 
-
+# -----------------------------
+# Recording
+# -----------------------------
 def record_command(filename, duration=2, samplerate=16000):
     print("🎤 Recording... Speak now!")
     audio = sd.rec(
@@ -11,8 +13,11 @@ def record_command(filename, duration=2, samplerate=16000):
     sf.write(filename, audio, samplerate)
     print(f"✅ Saved: {filename}")
 
-
+# -----------------------------
+# Data Collection
+# -----------------------------
 for i in range(130,150):
+    
     # # Record "on"
     # record_command(f"dataset/on/on_{i}.wav", duration=2)
 
